@@ -62,16 +62,17 @@ export const members = [
 
   // --- Members ---
   {
-    id: 'member-1',
-    name: 'Member 1',
-    handle: '@Member1',
+    id: 'chris2003',
+    name: 'chris2003',
+    handle: '@chris2003ES',
     role: 'Member',
-    avatar: '/avatars/aishikichu.png',
-    lore: 'A new story waiting to be written...',
-    twitch: null,
-    accentColor: 'rgba(150, 230, 210, 0.45)',
-    accentColorHover: 'rgba(150, 230, 210, 0.6)',
-    glowColor: 'rgba(150, 230, 210, 0.4)',
+    avatar: '/avatars/chris2003.png',
+    lore: 'Blessed by Chiffon, guided by kindness. May your avatars be cute, your worlds be cozy, and your memories last forever.',
+    twitch: 'https://www.twitch.tv/chris_2003',
+    twitter: 'https://x.com/chris2003ES',
+    accentColor: 'rgba(255, 182, 193, 0.45)',
+    accentColorHover: 'rgba(255, 182, 193, 0.6)',
+    glowColor: 'rgba(255, 182, 193, 0.4)',
   },
   {
     id: 'member-2',
