@@ -1,53 +1,83 @@
 'use client';
 
-import Image from 'next/image';
-import { tweets, events } from '@/data/newsEvents';
+import { useEffect, useState } from 'react';
+import Script from 'next/script';
+import { events } from '@/data/newsEvents';
 
 export default function NewsEvents() {
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    // Initial load
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    setTheme(currentTheme);
+
+    // Watch for theme changes on the html tag
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'data-theme') {
+          const nextTheme = document.documentElement.getAttribute('data-theme') || 'light';
+          setTheme(nextTheme);
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Tell Twitter script to re-scan the DOM when theme changes
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.twttr && window.twttr.widgets) {
+      window.twttr.widgets.load();
+    }
+  }, [theme]);
+
   return (
     <section className="news-events" id="news">
+      {/* Twitter Widgets Script */}
+      <Script
+        src="https://platform.twitter.com/widgets.js"
+        strategy="lazyOnload"
+        onLoad={() => {
+          if (window.twttr && window.twttr.widgets) {
+            window.twttr.widgets.load();
+          }
+        }}
+      />
+
       <div className="news-events__container">
-        {/* --- News & Updates Column (Twitter Feed) --- */}
+        {/* --- News & Updates Column (Real Live Twitter Feed) --- */}
         <div className="twitter-feed">
           <h2 className="section-title">
             <span>📢</span> News & Updates
           </h2>
-          {tweets.map((tweet) => (
+          <div 
+            key={theme} 
+            className="twitter-timeline-container" 
+            style={{ 
+              background: 'var(--color-bg-card)', 
+              borderRadius: 'var(--radius-xl)', 
+              padding: 'var(--space-md)',
+              border: '1px solid var(--navbar-border)',
+              height: '620px',
+              overflow: 'hidden'
+            }}
+          >
             <a
-              key={tweet.id}
-              href={tweet.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="tweet-card"
-              style={{ textDecoration: 'none', display: 'flex' }}
+              className="twitter-timeline"
+              data-theme={theme}
+              data-chrome="transparent noheader nofooter noborder"
+              data-height="580"
+              href="https://twitter.com/aishikichu?ref_src=twsrc%5Etfw"
             >
-              <div className="tweet-avatar" style={{ width: '48px', height: '48px', position: 'relative' }}>
-                <Image
-                  src={tweet.avatar}
-                  alt={tweet.author}
-                  fill
-                  sizes="48px"
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
-              <div className="tweet-content">
-                <div className="tweet-header">
-                  <div className="tweet-author-info">
-                    <span className="tweet-name">{tweet.author}</span>
-                    <span className="tweet-badge">✓</span>
-                    <span className="tweet-handle">{tweet.handle}</span>
-                  </div>
-                  <span className="tweet-time">{tweet.timestamp}</span>
-                </div>
-                <p className="tweet-text">{tweet.content}</p>
-                <div className="tweet-actions">
-                  <span className="tweet-action">💬 {tweet.retweets * 2}</span>
-                  <span className="tweet-action">🔁 {tweet.retweets}</span>
-                  <span className="tweet-action">❤️ {tweet.likes}</span>
-                </div>
-              </div>
+              Loading tweets by @aishikichu...
             </a>
-          ))}
+          </div>
         </div>
 
         {/* --- Events Calendar Column --- */}
