@@ -37,32 +37,12 @@ export const tweets = [
 export const events = [
   {
     id: 'event-1',
-    title: 'Weekly Community Meetup',
-    date: 'SAT, JUL 25',
-    time: '8:00 PM EST',
-    location: 'Re:START Cozy Bar (VRChat)',
-    description: 'Our regular weekly hangout! Come chat, play games, and meet new friends in a relaxed environment.',
-    tag: 'Cozy',
+    title: 'Re:START Holiday Meetup x Cosmatsuri',
+    date: 'TUE, 30, DEC',
+    time: '10:00 AM PHT',
+    location: 'SMX Convention Center, Mall of Asia',
+    description: 'Hangout shenanigans, cosplay, and just good vibes! We will also be heading out for a delicious KBBQ dinner together. 🍖✨',
+    tag: 'IRL Meetup',
     status: 'Upcoming',
-  },
-  {
-    id: 'event-2',
-    title: 'Neon Nights DJ Festival',
-    date: 'FRI, JUL 31',
-    time: '9:00 PM EST',
-    location: 'The Redo Club (VRChat)',
-    description: 'Get ready to dance! Re:START DJs are bringing the best house, future bass, and EDM sets straight to VR.',
-    tag: 'Music',
-    status: 'Upcoming',
-  },
-  {
-    id: 'event-3',
-    title: 'Movie Night: Redo Life Anew',
-    date: 'SUN, AUG 02',
-    time: '7:30 PM EST',
-    location: 'Re:START Theater World',
-    description: 'Grab your virtual popcorn! We are hosting a community movie night with chat, snacks, and good vibes.',
-    tag: 'Casual',
-    status: 'Planning',
   }
 ];
