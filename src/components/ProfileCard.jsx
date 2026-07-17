@@ -1,9 +1,10 @@
 import Image from 'next/image';
 
-export default function ProfileCard({ member, index }) {
+export default function ProfileCard({ member, index, onSelect }) {
   return (
     <div
       className="profile-card"
+      onClick={() => onSelect(member)}
       style={{
         '--card-accent': member.accentColor || 'rgba(180, 170, 230, 0.35)',
         '--card-accent-hover': member.accentColorHover || 'rgba(180, 170, 230, 0.5)',
@@ -38,43 +39,6 @@ export default function ProfileCard({ member, index }) {
         )}
         {member.role && (
           <p className="profile-card__role">{member.role}</p>
-        )}
-      </div>
-
-      {/* Action buttons (appear on hover) */}
-      <div className="profile-card__actions">
-        {member.lore && (
-          <button
-            className="profile-card__btn profile-card__btn--lore"
-            title={`View ${member.name}'s lore`}
-          >
-            📖 Lore
-          </button>
-        )}
-        {member.twitch && (
-          <a
-            href={member.twitch}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="profile-card__btn profile-card__btn--twitch"
-          >
-            📺 Twitch
-          </a>
-        )}
-        {member.twitter && (
-          <a
-            href={member.twitter}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="profile-card__btn"
-            style={{
-              color: '#fff',
-              background: 'rgba(29, 155, 240, 0.3)',
-              border: '1px solid rgba(29, 155, 240, 0.4)'
-            }}
-          >
-            🐦 X
-          </a>
         )}
       </div>
     </div>

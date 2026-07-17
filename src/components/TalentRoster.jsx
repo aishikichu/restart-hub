@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { members } from '@/data/members';
 import ProfileCard from './ProfileCard';
+import ProfileCardModal from './ProfileCardModal';
 
 export default function TalentRoster() {
   const sectionRef = useRef(null);
+  const [selectedMember, setSelectedMember] = useState(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -49,7 +51,12 @@ export default function TalentRoster() {
 
         <div className="roster__grid">
           {founders.map((member, index) => (
-            <ProfileCard key={member.id} member={member} index={index} />
+            <ProfileCard 
+              key={member.id} 
+              member={member} 
+              index={index} 
+              onSelect={setSelectedMember} 
+            />
           ))}
         </div>
       </div>
@@ -66,10 +73,23 @@ export default function TalentRoster() {
 
         <div className="roster__grid">
           {crew.map((member, index) => (
-            <ProfileCard key={member.id} member={member} index={index} />
+            <ProfileCard 
+              key={member.id} 
+              member={member} 
+              index={index} 
+              onSelect={setSelectedMember} 
+            />
           ))}
         </div>
       </div>
+
+      {/* --- Detailed Profile Modal Popup --- */}
+      {selectedMember && (
+        <ProfileCardModal 
+          member={selectedMember} 
+          onClose={() => setSelectedMember(null)} 
+        />
+      )}
     </section>
   );
 }
